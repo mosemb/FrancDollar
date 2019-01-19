@@ -1,0 +1,2116 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Transport}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/root/Downloads/kcoach\PYZus{}2015.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    TicketNo    C          Route   Time        Date  Fare  PlateNo  BusId  \textbackslash{}
+        0         4   \textbackslash{}N  RUBAVU-KIGALI  05h00  2015-05-03  2900  RAC100T    226   
+        1         5  NaN  RUBAVU-KIGALI  06h00  2015-05-03  2900  RAC100T    226   
+        2         6  NaN  KIGALI-RUBAVU  09h30  2015-05-04  2900  RAC304T    224   
+        3         8  NaN  KIGALI-RUBAVU  10h00  2015-05-04  2900  RAC304T    224   
+        4        10  NaN  KIGALI-RUBAVU  10h00  2015-05-04  2900  RAB134L    224   
+        
+          AgentName  2015-05-03,19:09:22  Unnamed: 10  Unnamed: 11  
+        0         2  2015-05-03,19:12:39          NaN          NaN  
+        1         2  2015-05-03,19:14:09          NaN          NaN  
+        2      YVES  2015-05-04,09:06:49          NaN          NaN  
+        3      YVES  2015-05-04,09:23:36          NaN          NaN  
+        4      YVES  2015-05-04,09:31:18          NaN          NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{del} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{del} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}         TicketNo         C           Route   Time        Date  Fare  PlateNo  \textbackslash{}
+        596874    633072         J  MUSANZE-RUBAVU  20h45  2015-12-31  1180  RAC113Y   
+        596875    633073         J  MUSANZE-RUBAVU  20h45  2015-12-31  1180  RAC113Y   
+        596876    633074         M  MUSANZE-RUBAVU  20h45  2015-12-31  1180  RAC113Y   
+        596877    633075  JACKISON  MUSANZE-RUBAVU  21h00  2015-12-31  1180  RAB593N   
+        596878    633076         J  MUSANZE-RUBAVU  21h00  2015-12-31  1180  RAB593N   
+        
+                BusId     AgentName  2015-05-03,19:09:22  
+        596874    227       JEAN,D.  2015-12-31,20:08:37  
+        596875    227       JEAN,D.  2015-12-31,20:11:13  
+        596876    227       JEAN,D.  2015-12-31,20:11:52  
+        596877    233  NDAGIJIMA,A.  2015-12-31,20:58:45  
+        596878    233  NDAGIJIMA,A.  2015-12-31,20:59:06  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{yticklabels}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{cbar}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7fbc4a1ce588>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 596879 entries, 0 to 596878
+Data columns (total 10 columns):
+TicketNo               596879 non-null int64
+C                      519210 non-null object
+Route                  596879 non-null object
+Time                   596879 non-null object
+Date                   596879 non-null object
+Fare                   596879 non-null int64
+PlateNo                596879 non-null object
+BusId                  596879 non-null int64
+AgentName              596879 non-null object
+2015-05-03,19:09:22    596879 non-null object
+dtypes: int64(3), object(7)
+memory usage: 45.5+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}             TicketNo           Fare          BusId
+        count  596879.000000  596879.000000  596879.000000
+        mean   326552.808695    2052.503710     227.216275
+        std    180264.336521     770.391492       2.740968
+        min         4.000000       0.000000     221.000000
+        25\%    174433.500000    1650.000000     225.000000
+        50\%    330479.000000    1750.000000     228.000000
+        75\%    482089.500000    2900.000000     229.000000
+        max    633076.000000    3000.000000     234.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}sns.countplot(x=\PYZdq{}RUBAVU\PYZhy{}KIGALI\PYZdq{},data=df)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Route}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} [<matplotlib.text.Text at 0x7fbc49732828>,
+          <matplotlib.text.Text at 0x7fbc4a791160>,
+          <matplotlib.text.Text at 0x7fbc4a1e5160>,
+          <matplotlib.text.Text at 0x7fbc4a704eb8>,
+          <matplotlib.text.Text at 0x7fbc4a70cb00>,
+          <matplotlib.text.Text at 0x7fbc4a70f748>,
+          <matplotlib.text.Text at 0x7fbc4a713390>,
+          <matplotlib.text.Text at 0x7fbc4a713f98>,
+          <matplotlib.text.Text at 0x7fbc4a718be0>,
+          <matplotlib.text.Text at 0x7fbc4a71b828>,
+          <matplotlib.text.Text at 0x7fbc4a71f470>,
+          <matplotlib.text.Text at 0x7fbc4a7240b8>,
+          <matplotlib.text.Text at 0x7fbc4a724cc0>,
+          <matplotlib.text.Text at 0x7fbc4a728908>,
+          <matplotlib.text.Text at 0x7fbc4a72c550>,
+          <matplotlib.text.Text at 0x7fbc4a730198>,
+          <matplotlib.text.Text at 0x7fbc4a730da0>,
+          <matplotlib.text.Text at 0x7fbc4a7339e8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AgentName}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} Index(['TicketNo', 'C', 'Route', 'Time', 'Date', 'Fare', 'PlateNo', 'BusId',
+                'AgentName', '2015-05-03,19:09:22'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{old\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2015\PYZhy{}05\PYZhy{}03,19:09:22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{n}{new\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TimeStamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{old\PYZus{}names}\PY{p}{,} \PY{n}{new\PYZus{}names}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} Index(['TicketNo', 'C', 'Route', 'Time', 'Date', 'Fare', 'PlateNo', 'BusId',
+                'AgentName', 'TimeStamp'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}    TicketNo    C          Route   Time        Date  Fare  PlateNo  BusId  \textbackslash{}
+         0         4   \textbackslash{}N  RUBAVU-KIGALI  05h00  2015-05-03  2900  RAC100T    226   
+         1         5  NaN  RUBAVU-KIGALI  06h00  2015-05-03  2900  RAC100T    226   
+         2         6  NaN  KIGALI-RUBAVU  09h30  2015-05-04  2900  RAC304T    224   
+         3         8  NaN  KIGALI-RUBAVU  10h00  2015-05-04  2900  RAC304T    224   
+         4        10  NaN  KIGALI-RUBAVU  10h00  2015-05-04  2900  RAB134L    224   
+         
+           AgentName            TimeStamp  
+         0         2  2015-05-03,19:12:39  
+         1         2  2015-05-03,19:14:09  
+         2      YVES  2015-05-04,09:06:49  
+         3      YVES  2015-05-04,09:23:36  
+         4      YVES  2015-05-04,09:31:18  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{yticklabels}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{cbar}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7fbc4a6160f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Route}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PlateNo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 596879 entries, 0 to 596878
+Data columns (total 10 columns):
+TicketNo     596879 non-null int64
+C            519210 non-null object
+Route        596879 non-null object
+Time         596879 non-null object
+Date         596879 non-null object
+Fare         596879 non-null int64
+PlateNo      596879 non-null object
+BusId        596879 non-null int64
+AgentName    596879 non-null object
+TimeStamp    596879 non-null object
+dtypes: int64(3), object(7)
+memory usage: 45.5+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BusId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} Index(['TicketNo', 'C', 'Route', 'Time', 'Date', 'Fare', 'PlateNo', 'BusId',
+                'AgentName', 'TimeStamp'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} (596879, 10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}    TicketNo    C          Route   Time        Date  Fare  PlateNo  BusId  \textbackslash{}
+         0         4   \textbackslash{}N  RUBAVU-KIGALI  05h00  2015-05-03  2900  RAC100T    226   
+         1         5  NaN  RUBAVU-KIGALI  06h00  2015-05-03  2900  RAC100T    226   
+         
+           AgentName            TimeStamp  
+         0         2  2015-05-03,19:12:39  
+         1         2  2015-05-03,19:14:09  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{PlateNo} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RAC304T}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}      TicketNo    C           Route   Time        Date  Fare  PlateNo  BusId  \textbackslash{}
+         2           6  NaN   KIGALI-RUBAVU  09h30  2015-05-04  2900  RAC304T    224   
+         3           8  NaN   KIGALI-RUBAVU  10h00  2015-05-04  2900  RAC304T    224   
+         77         90  NaN   KIGALI-RUBAVU  12h30  2015-05-04  2900  RAC304T    224   
+         138       183   \textbackslash{}N  KIGALI-MUSANZE  18h00  2015-05-04  1650  RAC304T    224   
+         
+             AgentName            TimeStamp  
+         2        YVES  2015-05-04,09:06:49  
+         3        YVES  2015-05-04,09:23:36  
+         77   FELICITE  2015-05-04,11:18:34  
+         138        \textbackslash{}N  2015-05-04,17:37:52  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{old\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlateNo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{n}{new\PYZus{}names} \PY{o}{=} \PY{p}{[} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Client}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BusNo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{old\PYZus{}names}\PY{p}{,} \PY{n}{new\PYZus{}names}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} Index(['TicketNo', 'Client', 'Route', 'Time', 'Date', 'Fare', 'BusNo', 'BusId',
+                'AgentName', 'TimeStamp'],
+               dtype='object')
+\end{Verbatim}
+            
+    \section{KIGALI-RUBAVU 2015 9h30}\label{kigali-rubavu-2015-9h30}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{dfKR} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Route}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KIGALI\PYZhy{}RUBAVU}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Time} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{09h30}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{dfKR}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}      TicketNo Client          Route   Time        Date  Fare    BusNo  BusId  \textbackslash{}
+         2           6    NaN  KIGALI-RUBAVU  09h30  2015-05-04  2900  RAC304T    224   
+         755       902     \textbackslash{}N  KIGALI-RUBAVU  09h30  2015-05-05  2900  RAB601N    228   
+         767       916     \textbackslash{}N  KIGALI-RUBAVU  09h30  2015-05-05  2900  RAB601N    228   
+         768       917     \textbackslash{}N  KIGALI-RUBAVU  09h30  2015-05-05  2900  RAB601N    228   
+         771       920    NaN  KIGALI-RUBAVU  09h30  2015-05-05  2900  RAB601N    224   
+         
+             AgentName            TimeStamp  
+         2        YVES  2015-05-04,09:06:49  
+         755        \textbackslash{}N  2015-05-05,08:54:05  
+         767        \textbackslash{}N  2015-05-05,08:59:04  
+         768        \textbackslash{}N  2015-05-05,08:59:09  
+         771        \textbackslash{}N  2015-05-05,08:59:52  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{dfKR}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{dfKR}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 3000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{dfKR}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 9780700
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{dfKR}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} (3425, 10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BusNo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{dfKR}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AgentName}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{dfKR}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{dfk} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{dfk}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} 0         05h00
+         1         06h00
+         2         09h30
+         3         10h00
+         4         10h00
+         5         10h00
+         6         10h00
+         7         10h00
+         8         10h00
+         9         10h00
+         10        10h00
+         11        10h00
+         12        10h00
+         13        10h00
+         14        10h00
+         15        10h00
+         16        10h00
+         17        10h00
+         18        10h00
+         19        10h00
+         20        10h00
+         21        10h00
+         22        10h00
+         23        10h00
+         24        10h00
+         25        10h00
+         26        10h00
+         27        10h00
+         28        10h00
+         29        10h00
+                   {\ldots}  
+         596849    20h00
+         596850    06h00
+         596851    06h00
+         596852    20h00
+         596853    06h00
+         596854    20h00
+         596855    20h00
+         596856    06h00
+         596857    20h15
+         596858    06h00
+         596859    20h15
+         596860    06h00
+         596861    06h00
+         596862    20h00
+         596863    20h15
+         596864    20h45
+         596865    20h45
+         596866    20h45
+         596867    20h15
+         596868    20h15
+         596869    20h15
+         596870    20h15
+         596871    20h15
+         596872    20h15
+         596873    20h15
+         596874    20h45
+         596875    20h45
+         596876    20h45
+         596877    21h00
+         596878    21h00
+         Name: Time, Length: 596879, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{dfk}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} 0    05h00
+         1    06h00
+         2    09h30
+         3    10h00
+         4    10h00
+         5    10h00
+         Name: Time, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{dfk}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-45-33864438acac> in <module>()
+    ----> 1 dfk.columns
+    
+
+        /usr/local/lib/python3.5/dist-packages/pandas/core/generic.py in \_\_getattr\_\_(self, name)
+       3608         if (name in self.\_internal\_names\_set or name in self.\_metadata or
+       3609                 name in self.\_accessors):
+    -> 3610             return object.\_\_getattribute\_\_(self, name)
+       3611         else:
+       3612             if name in self.\_info\_axis:
+
+
+        AttributeError: 'Series' object has no attribute 'columns'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:}  \PY{n}{a}\PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{a}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}133}]:} ['05h00',
+           '06h00',
+           '09h30',
+           '10h00',
+           '10h30',
+           '11h00',
+           '11h30',
+           '12h30',
+           '11h31',
+           '11h32',
+           '11h33',
+           '12h00',
+           '12h15',
+           '13h00',
+           '09h00',
+           '17h30',
+           '18h30',
+           '18h00',
+           '18h31',
+           '19h00',
+           '19h30',
+           '05h30',
+           '21h00',
+           '05h15',
+           '05h45',
+           '06h02',
+           '06h30',
+           '06h15',
+           '07h00',
+           '07h15',
+           '07h30',
+           '08h00',
+           '08h01',
+           '08h30',
+           '08h31',
+           '09h31',
+           '10h01',
+           '10h06',
+           '10h04',
+           '10h31',
+           '10h33',
+           '10h34',
+           '10h35',
+           '10h32',
+           '11h15',
+           '11h34',
+           '11h35',
+           '11h45',
+           '12h01',
+           '12h02',
+           '12h03',
+           '12h04',
+           '13h01',
+           '12h31',
+           '12h34',
+           '13h04',
+           '14h00',
+           '13h30',
+           '13h31',
+           '13h32',
+           '14h01',
+           '14h30',
+           '14h03',
+           '15h30',
+           '14h33',
+           '15h00',
+           '15h01',
+           '15h02',
+           '15h03',
+           '15h04',
+           '15h05',
+           '15h06',
+           '15h31',
+           '15h32',
+           '15h33',
+           '16h00',
+           '16h01',
+           '16h30',
+           '16h31',
+           '16h45',
+           '17h00',
+           '17h01',
+           '17h31',
+           '18h01',
+           '18h02',
+           '04h30',
+           '19h01',
+           '19h02',
+           '19h04',
+           '19h31',
+           '20h00',
+           '04h31',
+           '04h33',
+           '05h01',
+           '05h02',
+           '05h32',
+           '05h31',
+           '06h31',
+           '06h01',
+           '07h01',
+           '07h31',
+           '08h32',
+           '09h05',
+           '09h01',
+           '09h03',
+           '09h02',
+           '09h32',
+           '10h02',
+           '11h01',
+           '11h02',
+           '12h32',
+           '13h02',
+           '13h35',
+           '14h02',
+           '14h04',
+           '14h05',
+           '13h45',
+           '14h31',
+           '15h34',
+           '14h45',
+           '16h32',
+           '17h05',
+           '17h32',
+           '17h15',
+           '06h32',
+           '06h33',
+           '06h45',
+           '07h33',
+           '07h50',
+           '08h20',
+           '08h50',
+           '09h20',
+           '09h21',
+           '12h20',
+           '13h33',
+           '13h50',
+           '14h15',
+           '14h50',
+           '15h20',
+           '16h02',
+           '16h50',
+           '17h06',
+           '18h32',
+           '17h45',
+           '18h33',
+           '18h34',
+           '18h38',
+           '05h33',
+           '05h34',
+           '06h34',
+           '07h02',
+           '07h03',
+           '07h20',
+           '08h03',
+           '16h33',
+           '10h20',
+           '01h02',
+           '10h50',
+           '01h13',
+           '01h14',
+           '11h50',
+           '13h10',
+           '13h51',
+           '14h20',
+           '15h15',
+           '15h50',
+           '16h20',
+           '17h02',
+           '17h03',
+           '17h04',
+           '17h50',
+           '18h03',
+           '17h16',
+           '17h20',
+           '17h51',
+           '18h45',
+           '18h35',
+           '21h30',
+           '04h00',
+           '06h46',
+           '08h02',
+           '09h50',
+           '09h45',
+           '10h15',
+           '12h33',
+           '12h35',
+           '13h20',
+           '13h03',
+           '14h06',
+           '14h32',
+           '15h35',
+           '16h03',
+           '16h04',
+           '17h33',
+           '18h15',
+           '19h20',
+           '20h30',
+           '06h50',
+           '07h45',
+           '07h14',
+           '07h32',
+           '07h04',
+           '08h45',
+           '09h15',
+           '10h03',
+           '01h03',
+           '10h05',
+           '10h45',
+           '11h20',
+           '11h04',
+           '12h45',
+           '12h50',
+           '12h05',
+           '16h15',
+           '16h34',
+           '04h01',
+           '05h05',
+           '05h35',
+           '08h33',
+           '12h08',
+           '02h30',
+           '13h34',
+           '01h41',
+           '17h34',
+           '17h35',
+           '17h36',
+           '19h15',
+           '19h16',
+           '19h06',
+           '11h03',
+           '01h11',
+           '01h21',
+           '13h38',
+           '01h31',
+           '19h03',
+           '19h05',
+           '19h32',
+           '19h35',
+           '08h15',
+           '08h35',
+           '09h33',
+           '10h07',
+           '13h15',
+           '17h38',
+           '19h33',
+           '19h34',
+           '11h06',
+           '11h07',
+           '11h08',
+           '12h38',
+           '13h36',
+           '20h15',
+           '20h16',
+           '04h32',
+           '08h04',
+           '08h21',
+           '10h46',
+           '14h35',
+           '15h07',
+           '15h36',
+           '15h37',
+           '15h38',
+           '16h35',
+           '16h36',
+           '06h36',
+           '07h05',
+           '07h35',
+           '07h34',
+           '11h36',
+           '12h10',
+           '12h36',
+           '12h51',
+           '13h05',
+           '12h55',
+           '15h45',
+           '01h51',
+           '06h20',
+           '16h38',
+           '18h36',
+           '18h04',
+           '18h05',
+           '18h07',
+           '18h09',
+           '07h10',
+           '10h55',
+           '15h55',
+           '18h20',
+           '18h14',
+           '04h05',
+           '05h03',
+           '05h16',
+           '06h03',
+           '07h51',
+           '09h35',
+           '10h59',
+           '16h05',
+           '04h36',
+           '05h04',
+           '06h04',
+           '08h36',
+           '09h51',
+           '12h11',
+           '14h55',
+           '11h53',
+           '29h00',
+           '04h34',
+           '06h05',
+           '06h06',
+           '06h37',
+           '09h36',
+           '10h25',
+           '15h58',
+           '09h40',
+           '01h01',
+           '14h38',
+           '18h50',
+           '18h55',
+           '04h35',
+           '09h34',
+           '10h54',
+           '16h06',
+           '17h08',
+           '05h46',
+           '05h47',
+           '05h48',
+           '07h06',
+           '07h40',
+           '08h38',
+           '09h06',
+           '11h55',
+           '12h21',
+           '18h23',
+           '18h25',
+           '06h35',
+           '08h34',
+           '11h56',
+           '11h52',
+           '11h54',
+           '13h06',
+           '01h00',
+           '13h21',
+           '15h56',
+           '17h25',
+           '19h45',
+           '07h52',
+           '08h22',
+           '10h36',
+           '10h52',
+           '15h40',
+           '07h08',
+           '08h06',
+           '09h07',
+           '09h04',
+           '11h05',
+           '14h22',
+           '14h52',
+           '16h51',
+           '16h52',
+           '07h21',
+           '11h21',
+           '20h31',
+           '05h06',
+           '06h38',
+           '10h53',
+           '05h36',
+           '09h08',
+           '01h23',
+           '18h10',
+           '19h46',
+           '19h47',
+           '20h01',
+           '22h15',
+           '22h00',
+           '12h22',
+           '12h23',
+           '12h25',
+           '12h26',
+           '12h27',
+           '13h25',
+           '18h40',
+           '19h40',
+           '09h44',
+           '11h10',
+           '11h11',
+           '11h12',
+           '13h55',
+           '01h30',
+           '18h06',
+           '20h03',
+           '04h03',
+           '06h16',
+           '16h21',
+           '21h15',
+           '04h37',
+           '13h40',
+           '06h09',
+           '01h20',
+           '14h34',
+           '14h08',
+           '14h39',
+           '15h39',
+           '16h16',
+           '16h14',
+           '15h51',
+           '18h46',
+           '06h39',
+           '06h40',
+           '08h39',
+           '10h51',
+           '01h44',
+           '15h21',
+           '08h37',
+           '20h02',
+           '17h40',
+           '20h45',
+           '00h00',
+           '16h37',
+           '17h21',
+           '08h52',
+           '14h51',
+           '15h24',
+           '07h16',
+           '10h40',
+           '15h16',
+           '15h44',
+           '18h39',
+           '18h37',
+           '10h21',
+           '11h37',
+           '11h38',
+           '14h36',
+           '14h37',
+           '15h09',
+           '02h00',
+           '05h12',
+           '07h23',
+           '08h53',
+           '09h52',
+           '18h21',
+           '05h17',
+           '06h08',
+           '08h05',
+           '09h09',
+           '09h10',
+           '11h22',
+           '11h23',
+           '12h53',
+           '15h46',
+           '15h47',
+           '05h50',
+           '12h12',
+           '08h40',
+           '04h50',
+           '01h33',
+           '08h25',
+           '10h10',
+           '21h45',
+           '01h10',
+           '05h20',
+           '27h00',
+           '00h50',
+           '12h40',
+           '25h00',
+           '16h25',
+           '16h54',
+           '03h04',
+           '05h40',
+           '07h55',
+           '01h40',
+           '02h45',
+           '16h40',
+           '02h15',
+           '01h12',
+           '11h44',
+           '01h50',
+           '01h43',
+           '04h45',
+           '04h20',
+           '18h28',
+           '10h11',
+           '14h40',
+           '15h10',
+           '07h38',
+           '11h47',
+           '11h16',
+           '12h16',
+           '12h17']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{dfKq} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Time} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{11h02}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}   \PY{c+c1}{\PYZsh{}Time lag of 8 eight minutes per designated standard time. }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{dfKq}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} TicketNo     42
+          Client        9
+          Route        42
+          Time         42
+          Date         42
+          Fare         42
+          BusNo        42
+          BusId        42
+          AgentName    42
+          TimeStamp    42
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:} 487
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}144}]:} array(['05h00', '06h00', '09h30', '10h00', '10h30', '11h00', '11h30',
+                 '12h30', '11h31', '11h32', '11h33', '12h00', '12h15', '13h00',
+                 '09h00', '17h30', '18h30', '18h00', '18h31', '19h00', '19h30',
+                 '05h30', '21h00', '05h15', '05h45', '06h02', '06h30', '06h15',
+                 '07h00', '07h15', '07h30', '08h00', '08h01', '08h30', '08h31',
+                 '09h31', '10h01', '10h06', '10h04', '10h31', '10h33', '10h34',
+                 '10h35', '10h32', '11h15', '11h34', '11h35', '11h45', '12h01',
+                 '12h02', '12h03', '12h04', '13h01', '12h31', '12h34', '13h04',
+                 '14h00', '13h30', '13h31', '13h32', '14h01', '14h30', '14h03',
+                 '15h30', '14h33', '15h00', '15h01', '15h02', '15h03', '15h04',
+                 '15h05', '15h06', '15h31', '15h32', '15h33', '16h00', '16h01',
+                 '16h30', '16h31', '16h45', '17h00', '17h01', '17h31', '18h01',
+                 '18h02', '04h30', '19h01', '19h02', '19h04', '19h31', '20h00',
+                 '04h31', '04h33', '05h01', '05h02', '05h32', '05h31', '06h31',
+                 '06h01', '07h01', '07h31', '08h32', '09h05', '09h01', '09h03',
+                 '09h02', '09h32', '10h02', '11h01', '11h02', '12h32', '13h02',
+                 '13h35', '14h02', '14h04', '14h05', '13h45', '14h31', '15h34',
+                 '14h45', '16h32', '17h05', '17h32', '17h15', '06h32', '06h33',
+                 '06h45', '07h33', '07h50', '08h20', '08h50', '09h20', '09h21',
+                 '12h20', '13h33', '13h50', '14h15', '14h50', '15h20', '16h02',
+                 '16h50', '17h06', '18h32', '17h45', '18h33', '18h34', '18h38',
+                 '05h33', '05h34', '06h34', '07h02', '07h03', '07h20', '08h03',
+                 '16h33', '10h20', '01h02', '10h50', '01h13', '01h14', '11h50',
+                 '13h10', '13h51', '14h20', '15h15', '15h50', '16h20', '17h02',
+                 '17h03', '17h04', '17h50', '18h03', '17h16', '17h20', '17h51',
+                 '18h45', '18h35', '21h30', '04h00', '06h46', '08h02', '09h50',
+                 '09h45', '10h15', '12h33', '12h35', '13h20', '13h03', '14h06',
+                 '14h32', '15h35', '16h03', '16h04', '17h33', '18h15', '19h20',
+                 '20h30', '06h50', '07h45', '07h14', '07h32', '07h04', '08h45',
+                 '09h15', '10h03', '01h03', '10h05', '10h45', '11h20', '11h04',
+                 '12h45', '12h50', '12h05', '16h15', '16h34', '04h01', '05h05',
+                 '05h35', '08h33', '12h08', '02h30', '13h34', '01h41', '17h34',
+                 '17h35', '17h36', '19h15', '19h16', '19h06', '11h03', '01h11',
+                 '01h21', '13h38', '01h31', '19h03', '19h05', '19h32', '19h35',
+                 '08h15', '08h35', '09h33', '10h07', '13h15', '17h38', '19h33',
+                 '19h34', '11h06', '11h07', '11h08', '12h38', '13h36', '20h15',
+                 '20h16', '04h32', '08h04', '08h21', '10h46', '14h35', '15h07',
+                 '15h36', '15h37', '15h38', '16h35', '16h36', '06h36', '07h05',
+                 '07h35', '07h34', '11h36', '12h10', '12h36', '12h51', '13h05',
+                 '12h55', '15h45', '01h51', '06h20', '16h38', '18h36', '18h04',
+                 '18h05', '18h07', '18h09', '07h10', '10h55', '15h55', '18h20',
+                 '18h14', '04h05', '05h03', '05h16', '06h03', '07h51', '09h35',
+                 '10h59', '16h05', '04h36', '05h04', '06h04', '08h36', '09h51',
+                 '12h11', '14h55', '11h53', '29h00', '04h34', '06h05', '06h06',
+                 '06h37', '09h36', '10h25', '15h58', '09h40', '01h01', '14h38',
+                 '18h50', '18h55', '04h35', '09h34', '10h54', '16h06', '17h08',
+                 '05h46', '05h47', '05h48', '07h06', '07h40', '08h38', '09h06',
+                 '11h55', '12h21', '18h23', '18h25', '06h35', '08h34', '11h56',
+                 '11h52', '11h54', '13h06', '01h00', '13h21', '15h56', '17h25',
+                 '19h45', '07h52', '08h22', '10h36', '10h52', '15h40', '07h08',
+                 '08h06', '09h07', '09h04', '11h05', '14h22', '14h52', '16h51',
+                 '16h52', '07h21', '11h21', '20h31', '05h06', '06h38', '10h53',
+                 '05h36', '09h08', '01h23', '18h10', '19h46', '19h47', '20h01',
+                 '22h15', '22h00', '12h22', '12h23', '12h25', '12h26', '12h27',
+                 '13h25', '18h40', '19h40', '09h44', '11h10', '11h11', '11h12',
+                 '13h55', '01h30', '18h06', '20h03', '04h03', '06h16', '16h21',
+                 '21h15', '04h37', '13h40', '06h09', '01h20', '14h34', '14h08',
+                 '14h39', '15h39', '16h16', '16h14', '15h51', '18h46', '06h39',
+                 '06h40', '08h39', '10h51', '01h44', '15h21', '08h37', '20h02',
+                 '17h40', '20h45', '00h00', '16h37', '17h21', '08h52', '14h51',
+                 '15h24', '07h16', '10h40', '15h16', '15h44', '18h39', '18h37',
+                 '10h21', '11h37', '11h38', '14h36', '14h37', '15h09', '02h00',
+                 '05h12', '07h23', '08h53', '09h52', '18h21', '05h17', '06h08',
+                 '08h05', '09h09', '09h10', '11h22', '11h23', '12h53', '15h46',
+                 '15h47', '05h50', '12h12', '08h40', '04h50', '01h33', '08h25',
+                 '10h10', '21h45', '01h10', '05h20', '27h00', '00h50', '12h40',
+                 '25h00', '16h25', '16h54', '03h04', '05h40', '07h55', '01h40',
+                 '02h45', '16h40', '02h15', '01h12', '11h44', '01h50', '01h43',
+                 '04h45', '04h20', '18h28', '10h11', '14h40', '15h10', '07h38',
+                 '11h47', '11h16', '12h16', '12h17'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}161}]:} \PY{n}{seq} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abc123}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{def456}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ghi789}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{sub} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abc}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{list2} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{text} \PY{o+ow}{in} \PY{n}{seq}\PY{p}{:}
+              \PY{k}{if} \PY{n}{sub} \PY{o+ow}{in} \PY{n}{text}\PY{p}{:}
+                  \PY{n}{list2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}162}]:} \PY{n}{list2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}162}]:} ['abc123']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{n}{alist} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}155}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{alist}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}155}]:} list
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n}{sub} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11h}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{list2} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{text} \PY{o+ow}{in} \PY{n}{alist}\PY{p}{:}
+              \PY{k}{if} \PY{n}{sub} \PY{o+ow}{in} \PY{n}{text}\PY{p}{:}
+                  \PY{n}{list2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+                  
+                  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}165}]:} \PY{n}{list2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}165}]:} ['11h00',
+           '11h30',
+           '11h31',
+           '11h32',
+           '11h33',
+           '11h15',
+           '11h34',
+           '11h35',
+           '11h45',
+           '11h01',
+           '11h02',
+           '11h50',
+           '11h20',
+           '11h04',
+           '11h03',
+           '11h06',
+           '11h07',
+           '11h08',
+           '11h36',
+           '11h53',
+           '11h55',
+           '11h56',
+           '11h52',
+           '11h54',
+           '11h05',
+           '11h21',
+           '11h10',
+           '11h11',
+           '11h12',
+           '11h37',
+           '11h38',
+           '11h22',
+           '11h23',
+           '11h44',
+           '11h47',
+           '11h16']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}166}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{list2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}166}]:} 36
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}169}]:} \PY{n}{list2} \PY{o}{=} \PY{p}{[}\PY{n}{w}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{list2}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{n}{list2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}170}]:} ['1100',
+           '1130',
+           '1131',
+           '1132',
+           '1133',
+           '1115',
+           '1134',
+           '1135',
+           '1145',
+           '1101',
+           '1102',
+           '1150',
+           '1120',
+           '1104',
+           '1103',
+           '1106',
+           '1107',
+           '1108',
+           '1136',
+           '1153',
+           '1155',
+           '1156',
+           '1152',
+           '1154',
+           '1105',
+           '1121',
+           '1110',
+           '1111',
+           '1112',
+           '1137',
+           '1138',
+           '1122',
+           '1123',
+           '1144',
+           '1147',
+           '1116']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{list2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}171}]:} 36
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{n}{list2} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{int}\PY{p}{,} \PY{n}{list2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{n}{list2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}173}]:} [1100,
+           1130,
+           1131,
+           1132,
+           1133,
+           1115,
+           1134,
+           1135,
+           1145,
+           1101,
+           1102,
+           1150,
+           1120,
+           1104,
+           1103,
+           1106,
+           1107,
+           1108,
+           1136,
+           1153,
+           1155,
+           1156,
+           1152,
+           1154,
+           1105,
+           1121,
+           1110,
+           1111,
+           1112,
+           1137,
+           1138,
+           1122,
+           1123,
+           1144,
+           1147,
+           1116]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{n}{list2}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{n}{list2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}175}]:} [1100,
+           1101,
+           1102,
+           1103,
+           1104,
+           1105,
+           1106,
+           1107,
+           1108,
+           1110,
+           1111,
+           1112,
+           1115,
+           1116,
+           1120,
+           1121,
+           1122,
+           1123,
+           1130,
+           1131,
+           1132,
+           1133,
+           1134,
+           1135,
+           1136,
+           1137,
+           1138,
+           1144,
+           1145,
+           1147,
+           1150,
+           1152,
+           1153,
+           1154,
+           1155,
+           1156]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{n}{dfK11} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Time} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{11h00}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}180}]:} 0         05h00
+          1         06h00
+          2         09h30
+          3         10h00
+          4         10h00
+          5         10h00
+          6         10h00
+          7         10h00
+          8         10h00
+          9         10h00
+          10        10h00
+          11        10h00
+          12        10h00
+          13        10h00
+          14        10h00
+          15        10h00
+          16        10h00
+          17        10h00
+          18        10h00
+          19        10h00
+          20        10h00
+          21        10h00
+          22        10h00
+          23        10h00
+          24        10h00
+          25        10h00
+          26        10h00
+          27        10h00
+          28        10h00
+          29        10h00
+                    {\ldots}  
+          596849    20h00
+          596850    06h00
+          596851    06h00
+          596852    20h00
+          596853    06h00
+          596854    20h00
+          596855    20h00
+          596856    06h00
+          596857    20h15
+          596858    06h00
+          596859    20h15
+          596860    06h00
+          596861    06h00
+          596862    20h00
+          596863    20h15
+          596864    20h45
+          596865    20h45
+          596866    20h45
+          596867    20h15
+          596868    20h15
+          596869    20h15
+          596870    20h15
+          596871    20h15
+          596872    20h15
+          596873    20h15
+          596874    20h45
+          596875    20h45
+          596876    20h45
+          596877    21h00
+          596878    21h00
+          Name: Time, Length: 596879, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{n}{list2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}276}]:} [1100,
+           1101,
+           1102,
+           1103,
+           1104,
+           1105,
+           1106,
+           1107,
+           1108,
+           1110,
+           1111,
+           1112,
+           1115,
+           1116,
+           1120,
+           1121,
+           1122,
+           1123,
+           1130,
+           1131,
+           1132,
+           1133,
+           1134,
+           1135,
+           1136,
+           1137,
+           1138,
+           1144,
+           1145,
+           1147,
+           1150,
+           1152,
+           1153,
+           1154,
+           1155,
+           1156]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}283}]:} \PY{o}{\PYZpc{}}\PY{k}{pprint}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Pretty printing has been turned OFF
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}284}]:} \PY{n}{list2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}284}]:} [1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1110, 1111, 1112, 1115, 1116, 1120, 1121, 1122, 1123, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1144, 1145, 1147, 1150, 1152, 1153, 1154, 1155, 1156]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}332}]:} \PY{n}{dftime} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Time} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{11h01}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}333}]:} \PY{n}{dftime}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}333}]:}         TicketNo       Client           Route   Time        Date  Fare  \textbackslash{}
+          2897        3485          NaN   RUBAVU-KIGALI  11h01  2015-05-06  2900   
+          2911        3505          NaN  KIGALI-MUSANZE  11h01  2015-05-06  1650   
+          4901        5910          NaN   KIGALI-RUBAVU  11h01  2015-05-07  2900   
+          4938        5957           \textbackslash{}N  KIGALI-MUSANZE  11h01  2015-05-07  1650   
+          4939        5958          NaN  KIGALI-MUSANZE  11h01  2015-05-07  1650   
+          4940        5959          NaN  KIGALI-MUSANZE  11h01  2015-05-07     0   
+          4945        5964          NaN  KIGALI-MUSANZE  11h01  2015-05-07  1650   
+          4946        5966          NaN  KIGALI-MUSANZE  11h01  2015-05-07  1650   
+          4948        5968           \textbackslash{}N  KIGALI-MUSANZE  11h01  2015-05-07  1650   
+          4949        5969           \textbackslash{}N  KIGALI-MUSANZE  11h01  2015-05-07  1650   
+          6836        8325          NaN  KIGALI-MUSANZE  11h01  2015-05-08  1650   
+          6837        8326           \textbackslash{}N  KIGALI-MUSANZE  11h01  2015-05-08  1650   
+          6838        8327          NaN   KIGALI-RUBAVU  11h01  2015-05-08  2900   
+          6839        8328          NaN  KIGALI-MUSANZE  11h01  2015-05-08  1650   
+          6846        8335           \textbackslash{}N  KIGALI-MUSANZE  11h01  2015-05-08  1650   
+          6850        8339          NaN  KIGALI-MUSANZE  11h01  2015-05-08  1650   
+          6875        8365          NaN  RUBAVU-MUSANZE  11h01  2015-05-08  1000   
+          9265       11092          NaN  RUBAVU-MUSANZE  11h01  2015-05-09  1100   
+          9274       11102          NaN  KIGALI-MUSANZE  11h01  2015-05-09  1650   
+          9277       11105           \textbackslash{}N  KIGALI-MUSANZE  11h01  2015-05-09  1650   
+          9314       11145          NaN  KIGALI-MUSANZE  11h01  2015-05-09  1650   
+          9319       11150          NaN  KIGALI-MUSANZE  11h01  2015-05-09  1650   
+          11393      13675          NaN   KIGALI-RUBAVU  11h01  2015-05-10  2900   
+          11435      13717          NaN  KIGALI-MUSANZE  11h01  2015-05-10  1650   
+          11442      13725          NaN   KIGALI-RUBAVU  11h01  2015-05-10  2900   
+          11463      13749           \textbackslash{}N  MUSANZE-KIGALI  11h01  2015-05-10  1650   
+          11464      13750          NaN  MUSANZE-KIGALI  11h01  2015-05-10  1650   
+          11465      13751          NaN  MUSANZE-KIGALI  11h01  2015-05-10  1650   
+          11468      13754          NaN  MUSANZE-KIGALI  11h01  2015-05-10  1650   
+          11472      13758          NaN   RUBAVU-KIGALI  11h01  2015-05-10  2900   
+          {\ldots}          {\ldots}          {\ldots}             {\ldots}    {\ldots}         {\ldots}   {\ldots}   
+          97377     117222          NaN   KIGALI-RUBAVU  11h01  2015-06-16  2900   
+          97381     117226          NaN   KIGALI-RUBAVU  11h01  2015-06-16  2900   
+          97394     117239          NaN  KIGALI-MUSANZE  11h01  2015-06-16  1650   
+          97406     117253         KASE   KIGALI-RUBAVU  11h01  2015-06-16  2900   
+          97408     117255  TWAGIRAYEZU   KIGALI-RUBAVU  11h01  2015-06-16  2900   
+          97414     117265          NaN   KIGALI-RUBAVU  11h01  2015-06-16  2900   
+          97415     117266          NaN   RUBAVU-KIGALI  11h01  2015-06-16     0   
+          97424     117275     GAUDENCE   KIGALI-RUBAVU  11h01  2015-06-16  2900   
+          97428     117280           \textbackslash{}N   RUBAVU-KIGALI  11h01  2015-06-16  2900   
+          97429     117281           \textbackslash{}N   RUBAVU-KIGALI  11h01  2015-06-16  2900   
+          97430     117282           \textbackslash{}N   RUBAVU-KIGALI  11h01  2015-06-16  2900   
+          99413     119708          NaN   KIGALI-RUBAVU  11h01  2015-06-17  2900   
+          99437     119751          NaN  MUSANZE-KIGALI  11h01  2015-06-17     0   
+          99453     119768          NaN   RUBAVU-KIGALI  11h01  2015-06-17  2900   
+          99482     119808           \textbackslash{}N  MUSANZE-KIGALI  11h01  2015-06-17  1650   
+          101427    122169          NaN   KIGALI-RUBAVU  11h01  2015-06-18  2900   
+          103526    124763           \textbackslash{}N   KIGALI-RUBAVU  11h01  2015-06-19  2900   
+          103527    124764           \textbackslash{}N   KIGALI-RUBAVU  11h01  2015-06-19  2900   
+          103528    124765           \textbackslash{}N   KIGALI-RUBAVU  11h01  2015-06-19  2900   
+          103558    124801          NaN   RUBAVU-KIGALI  11h01  2015-06-19  2900   
+          103579    124823          NaN   RUBAVU-KIGALI  11h01  2015-06-19  2900   
+          103589    124833           \textbackslash{}N   RUBAVU-KIGALI  11h01  2015-06-19  2900   
+          103591    124835           \textbackslash{}N   RUBAVU-KIGALI  11h01  2015-06-19  2900   
+          103596    124840           \textbackslash{}N   RUBAVU-KIGALI  11h01  2015-06-19  2900   
+          115069    138084          NaN  RUBAVU-MUSANZE  11h01  2015-06-24  1000   
+          141688    166540          NaN  RUBAVU-MUSANZE  11h01  2015-07-05  1100   
+          141705    166557          NaN  RUBAVU-MUSANZE  11h01  2015-07-05  1000   
+          514221    549609       CLAUDE  MUSANZE-KIGALI  11h01  2015-12-03  1750   
+          514267    549655       DENYSE  MUSANZE-KIGALI  11h01  2015-12-03  1750   
+          514275    549663          BEX  MUSANZE-KIGALI  11h01  2015-12-03  1750   
+          
+                    BusNo  BusId  AgentName            TimeStamp  
+          2897    RAB764R    225      ELIAS  2015-05-06,10:39:56  
+          2911    RAB763R    228   FELICITE  2015-05-06,10:46:03  
+          4901    RAC385U    228         \textbackslash{}N  2015-05-07,10:47:11  
+          4938    RAC716P    228         \textbackslash{}N  2015-05-07,11:05:11  
+          4939    RAC716P    228         \textbackslash{}N  2015-05-07,11:05:34  
+          4940    RAC716P    228         \textbackslash{}N  2015-05-07,11:06:11  
+          4945    RAC716P    228         \textbackslash{}N  2015-05-07,11:07:13  
+          4946    RAC716P    228         \textbackslash{}N  2015-05-07,11:07:49  
+          4948    RAC716P    228         \textbackslash{}N  2015-05-07,11:08:25  
+          4949    RAC716P    228         \textbackslash{}N  2015-05-07,11:09:00  
+          6836    RAC304T    224       YVES  2015-05-08,10:51:04  
+          6837    RAC304T    224       YVES  2015-05-08,10:51:22  
+          6838    RAC384U    228         \textbackslash{}N  2015-05-08,10:51:25  
+          6839    RAC304T    224       YVES  2015-05-08,10:52:00  
+          6846    RAC304T    224       YVES  2015-05-08,10:52:56  
+          6850    RAC304T    224       YVES  2015-05-08,10:54:47  
+          6875    RAC114R    225  TUYISENGE  2015-05-08,11:06:24  
+          9265    RAB591N    225     GENTIL  2015-05-09,10:32:15  
+          9274    RAC385U    224       YVES  2015-05-09,10:35:37  
+          9277    RAC385U    224       YVES  2015-05-09,10:36:27  
+          9314    RAC385U    224       YVES  2015-05-09,10:51:52  
+          9319    RAC385U    224       YVES  2015-05-09,10:53:22  
+          11393   RAB591N    228         \textbackslash{}N  2015-05-10,10:28:10  
+          11435   RAB591N    228         \textbackslash{}N  2015-05-10,10:35:14  
+          11442   RAB591N    228         \textbackslash{}N  2015-05-10,10:36:12  
+          11463   RAB590N    223      ABDOU  2015-05-10,10:48:58  
+          11464   RAB590N    223      ABDOU  2015-05-10,10:49:50  
+          11465   RAB590N    223      ABDOU  2015-05-10,10:51:31  
+          11468   RAB590N    223      ABDOU  2015-05-10,10:52:00  
+          11472   RAB601N    225  TUYISENGE  2015-05-10,10:53:10  
+          {\ldots}         {\ldots}    {\ldots}        {\ldots}                  {\ldots}  
+          97377   RAC304T    228       YVES  2015-06-16,10:27:29  
+          97381   RAC304T    228       YVES  2015-06-16,10:29:05  
+          97394   RAC304T    228       YVES  2015-06-16,10:35:45  
+          97406   RAC304T    228       YVES  2015-06-16,10:43:18  
+          97408   RAC304T    228       YVES  2015-06-16,10:43:59  
+          97414   RAC304T    228       YVES  2015-06-16,10:46:17  
+          97415   RAC385U    225  TUYISENGE  2015-06-16,10:46:33  
+          97424   RAC304T    228       YVES  2015-06-16,10:49:10  
+          97428   RAC385U    225  TUYISENGE  2015-06-16,10:50:12  
+          97429   RAC385U    225  TUYISENGE  2015-06-16,10:50:19  
+          97430   RAC385U    225  TUYISENGE  2015-06-16,10:50:27  
+          99413   RAC304T    228         \textbackslash{}N  2015-06-17,10:20:55  
+          99437   RAB594N    223      ABDOU  2015-06-17,10:34:36  
+          99453   RAB602N    229  TUYISENGE  2015-06-17,10:42:41  
+          99482   RAB594N    223      ABDOU  2015-06-17,10:56:14  
+          101427  RAC304T    228       YVES  2015-06-18,10:35:53  
+          103526  RAC385U    224         \textbackslash{}N  2015-06-19,10:24:49  
+          103527  RAC385U    224         \textbackslash{}N  2015-06-19,10:24:54  
+          103528  RAC385U    224         \textbackslash{}N  2015-06-19,10:24:58  
+          103558  RAC114R    229  TUYISENGE  2015-06-19,10:37:24  
+          103579  RAC114R    229  TUYISENGE  2015-06-19,10:43:08  
+          103589  RAC114R    229  TUYISENGE  2015-06-19,10:44:59  
+          103591  RAC114R    229  TUYISENGE  2015-06-19,10:45:04  
+          103596  RAC114R    229  TUYISENGE  2015-06-19,10:46:37  
+          115069  RAB602N    222   MUJAWASE  2015-06-24,10:48:19  
+          141688  RAC304T    225      ELIAS  2015-07-05,10:25:45  
+          141705  RAC304T    225      ELIAS  2015-07-05,10:32:30  
+          514221  RAC641W    233      AZIZA  2015-12-03,10:37:56  
+          514267  RAC641W    233      AZIZA  2015-12-03,10:49:38  
+          514275  RAC641W    233      AZIZA  2015-12-03,10:51:36  
+          
+          [210 rows x 10 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}325}]:} \PY{n}{dftime}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}325}]:} TicketNo     1
+          Client       0
+          Route        1
+          Time         1
+          Date         1
+          Fare         1
+          BusNo        1
+          BusId        1
+          AgentName    1
+          TimeStamp    1
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}327}]:} \PY{n}{df}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{n}{like}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}327}]:} Empty DataFrame
+          Columns: [TicketNo, Client, Route, Time, Date, Fare, BusNo, BusId, AgentName, TimeStamp]
+          Index: []
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}369}]:} \PY{c+c1}{\PYZsh{}k.columns=[\PYZsq{}some\PYZus{}thing\PYZsq{}]}
+          \PY{n}{eleven}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{11h}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}370}]:} \PY{n}{elevenKR} \PY{o}{=} \PY{n}{eleven}\PY{p}{[}\PY{p}{(}\PY{n}{eleven}\PY{o}{.}\PY{n}{Route}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KIGALI\PYZhy{}RUBAVU}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}373}]:} \PY{n}{elevenKR}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}373}]:} TicketNo     9344
+          Client       8128
+          Route        9344
+          Time         9344
+          Date         9344
+          Fare         9344
+          BusNo        9344
+          BusId        9344
+          AgentName    9344
+          TimeStamp    9344
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} the size of A4 paper}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AgentName}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{dfKR}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
